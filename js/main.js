@@ -8,27 +8,34 @@
  */
 ;
 (function(window, document, $) {
-	var isfirst=true; //用来判断是否是第一次加载
-      //存储模块数据
-  var navArr=[{name:'#banner', scrollTop:0, }, {name:'#aboutMe', scrollTop:0, }, {name:'#mySkills', scrollTop:0, }, {name:'#myPortfolio', scrollTop:0, }, {name:'#message', scrollTop:0, } ];
-  // 案例demo组
-  var demoArr=[
-      {
-        name:'swws',
-        imgUrl:[
-          'https://image.sumaotong.com/258com/20181218/cd39dcbcbf12e59c630ccb0d94c10b20.png',
-          'https://image.sumaotong.com/258com/20181218/ca966f6197296766365bdab075b37665.png',
-          'https://image.sumaotong.com/258com/20181218/cd39dcbcbf12e59c630ccb0d94c10b20.png',
-        ]
-      },
-      {
-        name:'smt',
-        imgUrl:[
-          'https://image.sumaotong.com/258com/20181218/bc32c268ac34d70e463a6dd998f5fc93.png',
-          'https://image.sumaotong.com/258com/20181218/db74894d06af7e065198a2f4efad0270.png',
-          'https://image.sumaotong.com/258com/20181218/636a7fb2d5380cb127a9b73c23d766a5.png',
-        ]
-      }
+    var isfirst = true; //用来判断是否是第一次加载
+    //存储模块数据
+    var navArr = [{ name: '#banner', scrollTop: 0, }, { name: '#aboutMe', scrollTop: 0, }, { name: '#mySkills', scrollTop: 0, }, { name: '#myPortfolio', scrollTop: 0, }, { name: '#message', scrollTop: 0, }];
+    // 案例demo组
+    var demoArr = [{
+            name: 'swws',
+            imgUrl: [
+                'https://images.hongzequan.com/website/portfolio/swws_1.png',
+                'https://images.hongzequan.com/website/portfolio/swws_2.png',
+                'https://images.hongzequan.com/website/portfolio/swws_3.png',
+            ]
+        },
+        {
+            name: 'smt',
+            imgUrl: [
+                'https://images.hongzequan.com/website/portfolio/smt_1.png',
+                'https://images.hongzequan.com/website/portfolio/smt_2.png',
+                'https://images.hongzequan.com/website/portfolio/smt_3.png',
+            ]
+        },
+        {
+            name: 'smtyy',
+            imgUrl: [
+                'https://images.hongzequan.com/website/portfolio/yy_sumaotong.png',
+                'https://images.hongzequan.com/website/portfolio/yy_sumaotong_1.png',
+                'https://images.hongzequan.com/website/portfolio/yy_sumaotong_2.png',
+            ]
+        }
     ];
     var mySwiper;
 
@@ -50,7 +57,7 @@
                 userAgent: window.innerWidth > 870 ? 'pc' : 'm',
                 ie: this.IEVersion(),
                 limit: 7 >= this.IEVersion() > 10 ? true : false,
-                navTop:$('#aboutMe').offset().top-60,
+                navTop: $('#aboutMe').offset().top - 60,
             };
             return info;
         },
@@ -92,173 +99,387 @@
          * 初始化
          */
         init: function() {
-        	prin(); //打印
-        	initCanvas(); //粒子效果
-        	setBannerHeight(); //初始化banner高度
-
+            prin(); //打印
+            setBanner();
+            setBannerHeight();
+            initCanvas(); //粒子效果
+            setInfo();
+            $.getMessage();
+            smt.init();
         },
+
         /**
          * 页面滚动到指定位置js
          */
-        goTop:function(obj){
-        	if(obj){
-        		var top=$(obj).offset().top-60;
-        		$('body,html').stop(true, true).animate({ scrollTop: top }, 300);
-        	}else{
-        		$('body,html').stop(true, true).animate({ scrollTop: 0 }, 300);
-        	}
+        goTop: function(obj) {
+            if (obj) {
+                var top = $(obj).offset().top - 60;
+                $('body,html').stop(true, true).animate({ scrollTop: top }, 300);
+            } else {
+                $('body,html').stop(true, true).animate({ scrollTop: 0 }, 300);
+            }
         },
+
+        
         /**
          * 查看案例
          */
-         demo:function(obj){
-          var type=$(obj).attr('data-type');
-          /**
-          *  查看界面Swiper弹窗
-          */
-            mySwiper= new Swiper ('#portfolioBanner .swiper-container', {
+        demo: function(obj) {
+            var type = $(obj).attr('data-type');
+            /**
+             *  查看界面Swiper弹窗
+             */
+            mySwiper = new Swiper('#portfolioBanner .swiper-container', {
                 // loop: true,
                 // autoHeight: true, //高度随内容变化
-                paginationType : 'fraction',
+                paginationType: 'fraction',
                 // 如果需要前进后退按钮
                 nextButton: '#portfolioBanner .swiper-button-next',
                 prevButton: '#portfolioBanner .swiper-button-prev',
-                onSlideChangeEnd: function(swiper){ 
-                     mySwiper.update();
-                }  
+                onSlideChangeEnd: function(swiper) {
+                    mySwiper.update();
+                }
             });
             for (var i = 0; i < demoArr.length; i++) {
-              if(type==demoArr[i].name){
-                  for (var d = 0; d < demoArr[i].imgUrl.length; d++) {
-                      mySwiper.appendSlide('<div class="swiper-slide"><img src='+demoArr[i].imgUrl[d]+'></div>');
-                  }
-              }
+                if (type == demoArr[i].name) {
+                    for (var d = 0; d < demoArr[i].imgUrl.length; d++) {
+                        mySwiper.appendSlide('<div class="swiper-slide"><img src=' + demoArr[i].imgUrl[d] + '></div>');
+                    }
+                }
             };
             $('#portfolioBanner').show('400', function() {
                 mySwiper.update();
-                if(window.utils.getWindowInfo().userAgent=='m'){
-                   ModalHelper.afterOpen();
+                if (window.utils.getWindowInfo().userAgent == 'm') {
+                    ModalHelper.afterOpen();
                 }
 
             });
-         },
+        },
         /**
          * 关闭弹窗
          */
-        closeModal:function(obj){
-           $(obj).parent().fadeOut('400', function() {
-              mySwiper.removeAllSlides(); //移除全部
-              mySwiper.updatePagination();
-              if(window.utils.getWindowInfo().userAgent=='m'){
-                   ModalHelper.beforeClose();
+        closeModal: function(obj) {
+            $(obj).parent().fadeOut('400', function() {
+                mySwiper.removeAllSlides(); //移除全部
+                mySwiper.updatePagination();
+                if (window.utils.getWindowInfo().userAgent == 'm') {
+                    ModalHelper.beforeClose();
                 }
-           });
+            });
         },
+        /**
+         * 获得留言
+         */
+        getMessage:function(){
+            // 获取留言
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8000/getMessage",
+                data: '',
+                beforeSend: function() {
 
+                },
+                success: function(data) {
+                var res=JSON.parse(data);
+                if(res.s==1){
+                    var arr=res.info;
+                    for (var i = 0; i < arr.length; i++) {
+                            var html="<li>";
+                            if(arr[i].sex==0){
+                                html+="<div class='img-box'><img src='https://images.hongzequan.com/website/b_gg.png'></div>";
+                            }else{
+                                html+="<div class='img-box'><img src='https://images.hongzequan.com/website/b_mm.png'></div>";
+                            }
+                            html+="<div class='font-box'>";
+                            html+="<div class='from'>来自"+arr[i].address+"网友 - "+arr[i].userName+"</div>";
+                            html+="<p>"+arr[i].content+"</p>";
+                            html+="<span>"+timestampToTime(arr[i].createDate)+"</span>";
+                            html+="</div></li>";
+                            $('.msg-item').append(html)
+                        }
+                    }
+                },
+                error: function(err) {
+                    console.log('err')
+                }
+
+            });
+        },
+        /**
+         * 提交留言
+         */
+        submitMessage: function() {
+            var data = {
+                "username": $('#username').val()==''?'匿名':$('#username').val(),
+                "sex": $('input:radio[name="sex"]:checked').val(),
+                "content": $("textarea[name='content']").val(),
+                "ip": $('#ip').val(),
+                "address": $('#address').val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8000/setMessage",
+                data: data,
+                beforeSend: function() {
+                    if(data.content==''){
+                        $.openMessage('error','内容不能为空');
+                        return false;
+                    }
+                },
+                success: function(data) {
+                    $.openMessage('success','提交成功～');
+                    $("textarea[name='content']").val('');
+                    var html="<li>";
+                        if(data.sex==0){
+                            html+="<div class='img-box'><img src='https://images.hongzequan.com/website/b_gg.png'></div>";
+                        }else{
+                            html+="<div class='img-box'><img src='https://images.hongzequan.com/website/b_mm.png'></div>";
+                        }
+                        html+="<div class='font-box'>";
+                        html+="<div class='from'>来自"+data.address+"网友 - "+data.userName+"</div>";
+                        html+="<p>"+data.content+"</p>";
+                        html+="<span>"+timestampToTime(data.createDate)+"</span>";
+                        html+="</div></li>";
+                    $('.msg-item').append(html);
+                },
+                error: function(err) {
+                    console.log(err)
+                    $.openMessage('error','提交失败！')
+                }
+            });
+        },
+        // 检查是否能够提交留言
+        checkMessage:function(){
+            var data={
+                'ip':$('#ip').val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8000/checkMessage",
+                data: data,
+                beforeSend: function() {
+                   
+                },
+                success: function(data) {
+                    var res=JSON.parse(data);
+                    if(res.s==1){
+                        $.submitMessage();
+                    }
+                    
+                },
+                error: function(err) {
+                    console.log(err)
+                    $.openMessage('error','提交失败！')
+                }
+            });
+
+        },
+        // 公用提示信息
+        openMessage: function(type, text) {
+            if ($('#tips').length == 1) {
+                $('#tips').remove();
+                clearTimeout(t)
+            } 
+            if (type == 'success') {
+                var html = '<div id="tips">' + text + '</div>';
+                $('body').append(html);
+            } else if (type == 'error') {
+                var html = '<div id="tips" class="error">' + text + '</div>';
+                $('body').append(html);
+            }
+            $('#tips').addClass('on');
+            var t = setTimeout(function() {
+                $('#tips').fadeOut('400', function() {
+                    $('#tips').remove();
+                });
+            }, 3000)
+        }
     });
 
     ///////////////////////////////////////jQ扩展方法js结束////////////////////////////////////// 
 
     ///////////////////////////////////////模块js 开始//////////////////////////////////////
     /**
-  	* 控制台打印配置
-  	*/
-   	function prin(){
-   		console.log("%c ---本网站不支持ie8及以下浏览器打开---","color:red"); 
-   		if(window.utils.IEVersion()!='-1'){
-   			if(window.confirm("当前为IE浏览器,为了效果体验，不支持打开")){
-   				window.close();
-   			}
-   		}
-   	};
-    /**
-  	* 计算banner高度
-  	*/
-    function setBannerHeight(){
-        $('#banner').height(window.utils.getWindowInfo().height);
+     * 控制台打印配置
+     */
+    function prin() {
+        console.log("%c ---本网站不支持ie8及以下浏览器打开---", "color:red");
+        if (window.utils.IEVersion() != '-1') {
+            if (window.confirm("当前为IE浏览器,为了效果体验，不支持打开")) {
+                window.close();
+            }
+        }
     };
     /**
-  	* 粒子线条背景
-  	* 移动端点的条数为50个，避免密集
-  	*/
-  	function initCanvas(){
-  		var defaults={
-				dom:'J_dotLine',//画布id
-				cw:window.utils.getWindowInfo().width,//画布宽
-				ch:window.utils.getWindowInfo().height,//画布高
-				ds:100,//点的个数
-				r:0.5,//圆点半径
-				cl:'#aaa',//粒子线颜色
-				dis:100//触发连线的距离
-		};
-  		if(window.utils.getWindowInfo().userAgent=='m'){
-	  			var options={
-	  				ds:50,//点的个数
-	  			};
-	  			$.extend(defaults, options);
-  		}
-  		var dotline = new Dotline(defaults).start();
-  	};
-  	/**
-  	* 我的技能里进行赋值进度
-  	*/
-  	function setNum(){
-  		var bar=$('#skills .bar-box');
-  		var arrSKill=bar.find('span');
-  		for (var i = 0; i < arrSKill.length; i++) {
-  			$(arrSKill[i]).siblings().find('i').css('width',$(arrSKill[i]).html());
-  		};
-  	};
-  	/**
-  	*  性别选择
-  	*  当点击单选按钮时触发
-  	*/
-  	$('.ui-checkbox li').on('click',function(){
-  		/* Act on the event */
-  		$(this).find('input').attr('checked','checked');
-  		$(this).siblings().find('input').removeAttr('checked');
-  	});
-  	/**
-  	*  导航菜单滚动到指定位置进行变色
-  	*/
-  	$(window).scroll(function(event){
-  		var winTop = $(window).scrollTop();
-  		if(winTop>=window.utils.getWindowInfo().navTop){
-  			$('#header').addClass('on');
-  			if(window.utils.getWindowInfo().userAgent=='m'){
-  				$('.copyRight .goTop').addClass('on');
-  			}
-  		}else{
-  			$('#header').removeClass('on')
-  			if(window.utils.getWindowInfo().userAgent=='m'){
-  				$('.copyRight .goTop').removeClass('on');
-  			}
-  		}
-  		// 我的技能滚动到位置才进行数据显示效果
-  		if(winTop>=$('#mySkills .font-box').offset().top-window.utils.getWindowInfo().height/2){
-        	setNum() //滚动到才加载
-  		}
-  		setNavCur(winTop)
+     * 获取当前访问者的信息
+     */
+    function setInfo() {
+        $('#ip').val(returnCitySN['cip']);
+        $('#address').val(returnCitySN['cname'])
+    };
+
+
+    /**
+     * 设置轮播图图片
+     */
+     function setBanner(){
+        var arr=$('.banner img');
+            length=arr.length;
+            q=1;
+        if(window.utils.getWindowInfo().userAgent=='pc'){
+            for (var i = 0; i < arr.length; i++) {
+                $(arr[i]).attr('src',$(arr[i]).attr('data-pc'))
+            }
+        }else{
+             for (var i = 0; i < arr.length; i++) {
+                $(arr[i]).attr('src',$(arr[i]).attr('data-m'))
+            }
+        }
+        arr.load(function(){
+        // 加载完成    
+            if(length<=q){
+               initSwiper();
+            }else{
+              q++;
+            }
+        });
+
+     };
+    /**
+     * 计算banner高度
+     */
+    function setBannerHeight() {
+        $('body').css({"paddingTop":$('#banner').height()})
+    };
+    /**
+     * 初始化轮播图
+     */
+    function initSwiper() {
+        var bannerSwiper = new Swiper('.banner .swiper-container', {
+            loop: true,
+            autoplay: 5000,
+            autoplayDisableOnInteraction: false,
+            autoHeight: true, //高度随内容变化
+            // 如果需要分页器
+            pagination: '.banner .swiper-pagination',
+            paginationClickable :true,
+            observer:true,
+            observeParents:true,
+            onInit: function(swiper){
+              //Swiper初始化了
+              //alert(swiper.activeIndex);提示Swiper的当前索引
+              setBannerHeight();
+            },
+            onBeforeResize: function(swiper){
+              setBannerHeight()
+            }
+        });
+    };
+    /**
+     * 粒子线条背景
+     * 移动端点的条数为50个，避免密集
+     */
+    function initCanvas() {
+        var defaults = {
+            dom: 'J_dotLine', //画布id
+            cw: window.utils.getWindowInfo().width, //画布宽
+            ch: window.utils.getWindowInfo().height, //画布高
+            ds: 100, //点的个数
+            r: 0.5, //圆点半径
+            cl: '#aaa', //粒子线颜色
+            dis: 100 //触发连线的距离
+        };
+        if (window.utils.getWindowInfo().userAgent == 'm') {
+            var options = {
+                ds: 50, //点的个数
+            };
+            $.extend(defaults, options);
+        }
+        var dotline = new Dotline(defaults).start();
+    };
+    /**
+     * 我的技能里进行赋值进度
+     */
+    function setNum() {
+        var bar = $('#skills .bar-box');
+        var arrSKill = bar.find('span');
+        for (var i = 0; i < arrSKill.length; i++) {
+            $(arrSKill[i]).siblings().find('i').css('width', $(arrSKill[i]).html());
+        };
+    };
+    /**
+     *  性别选择
+     *  当点击单选按钮时触发
+     */
+    $('.ui-checkbox li').on('click', function() {
+        /* Act on the event */
+        $(this).find('input').attr('checked', 'checked');
+        $(this).siblings().find('input').removeAttr('checked');
+    });
+    /**
+     *  导航菜单滚动到指定位置进行变色
+     */
+    $(window).scroll(function(event) {
+        var winTop = $(window).scrollTop();
+        if (winTop >= window.utils.getWindowInfo().navTop) {
+            $('#header').addClass('on');
+            if (window.utils.getWindowInfo().userAgent == 'm') {
+                $('.copyRight .goTop').addClass('on');
+            }
+        } else {
+            $('#header').removeClass('on')
+            if (window.utils.getWindowInfo().userAgent == 'm') {
+                $('.copyRight .goTop').removeClass('on');
+            }
+        }
+        // 我的技能滚动到位置才进行数据显示效果
+        if (winTop >= $('#mySkills .font-box').offset().top - window.utils.getWindowInfo().height / 2) {
+            setNum() //滚动到才加载
+        }
+        setNavCur(winTop)
     });
 
-  	/**
-  	*  根据滚动距离计算nav样式
-  	*/
-    function setNavCur(top){
-    	// 判断是否是第一次加载，避免重复计算获取值 距离顶部的值
-    	if(isfirst){
-	    	for (var i = 0; i < navArr.length; i++) {
-	    		navArr[i].scrollTop=parseInt($(navArr[i].name).offset().top);
-	    	}
-	    	isfirst=false;
-    	};
-    	for (var i = 0; i < navArr.length; i++) {
-    		if(top>=navArr[i].scrollTop-60){
-    			$('#header ul li').eq(i).addClass('cur').siblings().removeClass('cur');
-    		}
-    	}
+    /**
+     *  根据滚动距离计算nav样式
+     */
+    function setNavCur(top) {
+        // 判断是否是第一次加载，避免重复计算获取值 距离顶部的值
+        if (isfirst) {
+            for (var i = 0; i < navArr.length; i++) {
+                navArr[i].scrollTop = parseInt($(navArr[i].name).offset().top);
+            }
+            isfirst = false;
+        };
+        for (var i = 0; i < navArr.length; i++) {
+            if (top >= navArr[i].scrollTop - 60) {
+                $('#header ul li').eq(i).addClass('cur').siblings().removeClass('cur');
+            }
+        }
     };
-   
+
+    // 滚动显示js
+    var smt = new SMT({
+        animateClass: 'animated',
+        offset: 100
+    });
+
+    window.onload=function(){
+        // 我的项目瀑布流效果
+        $('.myPortfolio-box ul').cascade();
+    }
+    function timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '/';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes();
+        // var s = date.getSeconds();
+        return Y+M+D+h+m;
+    }
+    // timestampToTime(1403058804);
+    // console.log(timestampToTime(1403058804));//2014-06-18 10:33:24
+
 
 
     ///////////////////////////////////////模块js 结束////////////////////////////////////// 
@@ -267,157 +488,159 @@
 
 
 // 粒子线条Js
-;(function(window){
-			function Dotline(option){
-				this.opt = this.extend({
-					dom:'J_dotLine',//画布id
-					cw:1000,//画布宽
-					ch:500,//画布高
-					ds:100,//点的个数
-					r:0.5,//圆点半径
-					cl:'#000',//颜色
-					dis:100//触发连线的距离
-				},option);
-				this.c = document.getElementById(this.opt.dom);//canvas元素id
-				this.ctx = this.c.getContext('2d');
-				this.c.width = this.opt.cw;//canvas宽
-				this.c.height = this.opt.ch;//canvas高
-				this.dotSum = this.opt.ds;//点的数量
-				this.radius = this.opt.r;//圆点的半径
-				this.disMax = this.opt.dis*this.opt.dis;//点与点触发连线的间距
-				this.color = this.color2rgb(this.opt.cl);//设置粒子线颜色
-				this.dots = [];
-				//requestAnimationFrame控制canvas动画
-				var RAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
-				            window.setTimeout(callback, 1000 / 60);
-				        };
-				var _self = this;
-				//增加鼠标效果
-				var mousedot = {x:null,y:null,label:'mouse'};
-				this.c.onmousemove = function(e){
-					var e = e || window.event;
-					mousedot.x = e.clientX - _self.c.offsetLeft;
-					mousedot.y = e.clientY - _self.c.offsetTop;
-				};
-				this.c.onmouseout = function(e){
-					mousedot.x = null;
-					mousedot.y = null;
-				}
-				//控制动画
-				this.animate = function(){
-					_self.ctx.clearRect(0, 0, _self.c.width, _self.c.height);
-					_self.drawLine([mousedot].concat(_self.dots));
-					RAF(_self.animate);
-				};
-			}
-			//合并配置项，es6直接使用obj.assign();
-			Dotline.prototype.extend = function(o,e){
-				for(var key in e){
-					if(e[key]){
-						o[key]=e[key]
-					}
-				}
-				return o;
-			};
-			//设置线条颜色(参考{抄袭}张鑫旭大大，http://www.zhangxinxu.com/wordpress/2010/03/javascript-hex-rgb-hsl-color-convert/)
-			Dotline.prototype.color2rgb = function(colorStr){
-				var red = null,
-					green = null,
-					blue = null;
-				var cstr = colorStr.toLowerCase();//变小写
-				var cReg = /^#[0-9a-fA-F]{3,6}$/;//确定是16进制颜色码
-				if(cstr&&cReg.test(cstr)){
-					if(cstr.length==4){
-						var cstrnew = '#';
-						for(var i=1;i<4;i++){
-							cstrnew += cstr.slice(i,i+1).concat(cstr.slice(i,i+1));
-						}
-						cstr = cstrnew;
-					}
-					red = parseInt('0x'+cstr.slice(1,3));
-					green = parseInt('0x'+cstr.slice(3,5));
-					blue = parseInt('0x'+cstr.slice(5,7));
-				}
-				return red+','+green+','+blue;
-			}
-			//画点
-			Dotline.prototype.addDots = function(){
-				var dot;
-				for(var i=0; i<this.dotSum; i++){//参数
-					dot = {
-						x : Math.floor(Math.random()*this.c.width)-this.radius,
-						y : Math.floor(Math.random()*this.c.height)-this.radius,
-						ax : (Math.random() * 2 - 1) / 1.5,
-						ay : (Math.random() * 2 - 1) / 1.5
-					}
-					this.dots.push(dot);
-				}
-			};
-			//点运动
-			Dotline.prototype.move = function(dot){
-				dot.x += dot.ax;
-				dot.y += dot.ay;
-				//点碰到边缘返回
-				dot.ax *= (dot.x>(this.c.width-this.radius)||dot.x<this.radius)?-1:1;
-				dot.ay *= (dot.y>(this.c.height-this.radius)||dot.y<this.radius)?-1:1;
-				//绘制点
-				this.ctx.beginPath();
-				this.ctx.arc(dot.x, dot.y, this.radius, 0, Math.PI*2, true);
-				this.ctx.stroke();
-			};
-			//点之间画线
-			Dotline.prototype.drawLine = function(dots){
-				var nowDot;
-				var _that = this;
-				//自己的思路：遍历两次所有的点，比较点之间的距离，函数的触发放在animate里
-				this.dots.forEach(function(dot){
-					
-					_that.move(dot);
-					for(var j=0; j<dots.length; j++){
-						nowDot = dots[j];
-						if(nowDot===dot||nowDot.x===null||nowDot.y===null) continue;//continue跳出当前循环开始新的循环
-						var dx = dot.x - nowDot.x,//别的点坐标减当前点坐标
-							dy = dot.y - nowDot.y;
-						var dc = dx*dx + dy*dy;
-						if(Math.sqrt(dc)>Math.sqrt(_that.disMax)) continue;
-						// 如果是鼠标，则让粒子向鼠标的位置移动
-						if (nowDot.label && Math.sqrt(dc) >Math.sqrt(_that.disMax)/2) {
-							dot.x -= dx * 0.02;
-							dot.y -= dy * 0.02;
-						}
-						var ratio;
-						ratio = (_that.disMax - dc) / _that.disMax;
-						_that.ctx.beginPath();
-						_that.ctx.lineWidth = ratio / 2;
-	          			_that.ctx.strokeStyle = 'rgba('+_that.color+',' + parseFloat(ratio + 0.2).toFixed(1) + ')';
-						_that.ctx.moveTo(dot.x, dot.y);
-						_that.ctx.lineTo(nowDot.x, nowDot.y);
-						_that.ctx.stroke();//不描边看不出效果
+;
+(function(window) {
+    function Dotline(option) {
+        this.opt = this.extend({
+            dom: 'J_dotLine', //画布id
+            cw: 1000, //画布宽
+            ch: 500, //画布高
+            ds: 100, //点的个数
+            r: 0.5, //圆点半径
+            cl: '#000', //颜色
+            dis: 100 //触发连线的距离
+        }, option);
+        this.c = document.getElementById(this.opt.dom); //canvas元素id
+        this.ctx = this.c.getContext('2d');
+        this.c.width = this.opt.cw; //canvas宽
+        this.c.height = this.opt.ch; //canvas高
+        this.dotSum = this.opt.ds; //点的数量
+        this.radius = this.opt.r; //圆点的半径
+        this.disMax = this.opt.dis * this.opt.dis; //点与点触发连线的间距
+        this.color = this.color2rgb(this.opt.cl); //设置粒子线颜色
+        this.dots = [];
+        //requestAnimationFrame控制canvas动画
+        var RAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
+            window.setTimeout(callback, 1000 / 60);
+        };
+        var _self = this;
+        //增加鼠标效果
+        var mousedot = { x: null, y: null, label: 'mouse' };
+        this.c.onmousemove = function(e) {
+            var e = e || window.event;
+            mousedot.x = e.clientX - _self.c.offsetLeft;
+            mousedot.y = e.clientY - _self.c.offsetTop;
+        };
+        this.c.onmouseout = function(e) {
+            mousedot.x = null;
+            mousedot.y = null;
+        }
+        //控制动画
+        this.animate = function() {
+            _self.ctx.clearRect(0, 0, _self.c.width, _self.c.height);
+            _self.drawLine([mousedot].concat(_self.dots));
+            RAF(_self.animate);
+        };
+    }
+    //合并配置项，es6直接使用obj.assign();
+    Dotline.prototype.extend = function(o, e) {
+        for (var key in e) {
+            if (e[key]) {
+                o[key] = e[key]
+            }
+        }
+        return o;
+    };
+    //设置线条颜色(参考{抄袭}张鑫旭大大，http://www.zhangxinxu.com/wordpress/2010/03/javascript-hex-rgb-hsl-color-convert/)
+    Dotline.prototype.color2rgb = function(colorStr) {
+        var red = null,
+            green = null,
+            blue = null;
+        var cstr = colorStr.toLowerCase(); //变小写
+        var cReg = /^#[0-9a-fA-F]{3,6}$/; //确定是16进制颜色码
+        if (cstr && cReg.test(cstr)) {
+            if (cstr.length == 4) {
+                var cstrnew = '#';
+                for (var i = 1; i < 4; i++) {
+                    cstrnew += cstr.slice(i, i + 1).concat(cstr.slice(i, i + 1));
+                }
+                cstr = cstrnew;
+            }
+            red = parseInt('0x' + cstr.slice(1, 3));
+            green = parseInt('0x' + cstr.slice(3, 5));
+            blue = parseInt('0x' + cstr.slice(5, 7));
+        }
+        return red + ',' + green + ',' + blue;
+    }
+    //画点
+    Dotline.prototype.addDots = function() {
+        var dot;
+        for (var i = 0; i < this.dotSum; i++) { //参数
+            dot = {
+                x: Math.floor(Math.random() * this.c.width) - this.radius,
+                y: Math.floor(Math.random() * this.c.height) - this.radius,
+                ax: (Math.random() * 2 - 1) / 1.5,
+                ay: (Math.random() * 2 - 1) / 1.5
+            }
+            this.dots.push(dot);
+        }
+    };
+    //点运动
+    Dotline.prototype.move = function(dot) {
+        dot.x += dot.ax;
+        dot.y += dot.ay;
+        //点碰到边缘返回
+        dot.ax *= (dot.x > (this.c.width - this.radius) || dot.x < this.radius) ? -1 : 1;
+        dot.ay *= (dot.y > (this.c.height - this.radius) || dot.y < this.radius) ? -1 : 1;
+        //绘制点
+        this.ctx.beginPath();
+        this.ctx.arc(dot.x, dot.y, this.radius, 0, Math.PI * 2, true);
+        this.ctx.stroke();
+    };
+    //点之间画线
+    Dotline.prototype.drawLine = function(dots) {
+        var nowDot;
+        var _that = this;
+        //自己的思路：遍历两次所有的点，比较点之间的距离，函数的触发放在animate里
+        this.dots.forEach(function(dot) {
 
-						//dots.splice(dots.indexOf(dot), 1);
-					}
-				});
-			};
-			//开始动画
-			Dotline.prototype.start = function(){
-				var _that = this;
-				this.addDots();
-				setTimeout(function() {
-				     _that.animate();
-				}, 100);
-			}
-			window.Dotline = Dotline;
+            _that.move(dot);
+            for (var j = 0; j < dots.length; j++) {
+                nowDot = dots[j];
+                if (nowDot === dot || nowDot.x === null || nowDot.y === null) continue; //continue跳出当前循环开始新的循环
+                var dx = dot.x - nowDot.x, //别的点坐标减当前点坐标
+                    dy = dot.y - nowDot.y;
+                var dc = dx * dx + dy * dy;
+                if (Math.sqrt(dc) > Math.sqrt(_that.disMax)) continue;
+                // 如果是鼠标，则让粒子向鼠标的位置移动
+                if (nowDot.label && Math.sqrt(dc) > Math.sqrt(_that.disMax) / 2) {
+                    dot.x -= dx * 0.02;
+                    dot.y -= dy * 0.02;
+                }
+                var ratio;
+                ratio = (_that.disMax - dc) / _that.disMax;
+                _that.ctx.beginPath();
+                _that.ctx.lineWidth = ratio / 2;
+                _that.ctx.strokeStyle = 'rgba(' + _that.color + ',' + parseFloat(ratio + 0.2).toFixed(1) + ')';
+                _that.ctx.moveTo(dot.x, dot.y);
+                _that.ctx.lineTo(nowDot.x, nowDot.y);
+                _that.ctx.stroke(); //不描边看不出效果
+
+                //dots.splice(dots.indexOf(dot), 1);
+            }
+        });
+    };
+    //开始动画
+    Dotline.prototype.start = function() {
+        var _that = this;
+        this.addDots();
+        setTimeout(function() {
+            _that.animate();
+        }, 100);
+    }
+    window.Dotline = Dotline;
 }(window));
 
 // 文字点击特效
 var list = ['学而时习之', '不亦说乎', '有朋自远方来', '不亦乐乎', '人不知而不愠', '不亦君子乎', '三人行 必有我师焉', '择其善者而从之', '其不善者而改之', '学而不思则罔', '思而不学则殆'];
-$('body>*').bind('click',function(e){
-    textUp( e, 2000, list, 200 )
+$('body>*').bind('click', function(e) {
+    textUp(e, 2000, list, 200)
 })
-function textUp( e, time, arr, heightUp ){
+
+function textUp(e, time, arr, heightUp) {
     var lists = Math.floor(Math.random() * arr.length);
-    var colors = '#'+Math.floor(Math.random()*0xffffff).toString(16);
-    var $i = $('<span />').text( arr[lists] );
+    var colors = '#' + Math.floor(Math.random() * 0xffffff).toString(16);
+    var $i = $('<span />').text(arr[lists]);
     var xx = e.pageX || e.clientX + document.body.scroolLeft;
     var yy = e.pageY || e.clientY + document.body.scrollTop;
 
@@ -430,53 +653,46 @@ function textUp( e, time, arr, heightUp ){
         display: 'block',
         position: 'absolute',
         zIndex: 999999999999
-    })  
+    })
     $i.animate({
-        top: yy - ( heightUp ? heightUp : 200 ),
+        top: yy - (heightUp ? heightUp : 200),
         opacity: 0
-    }, time, function(){
+    }, time, function() {
         $i.remove();
-    })            
+    })
 }
 
 /**
-  * ModalHelper helpers resolve the modal scrolling issue on mobile devices
-  * https://github.com/twbs/bootstrap/issues/15852
-  * requires document.scrollingElement polyfill https://github.com/yangg/scrolling-element
-  */
+ * ModalHelper helpers resolve the modal scrolling issue on mobile devices
+ * https://github.com/twbs/bootstrap/issues/15852
+ * requires document.scrollingElement polyfill https://github.com/yangg/scrolling-element
+ */
 var ModalHelper = (function(bodyCls) {
-  var scrollTop;
-  return {
-    afterOpen: function() {
-      scrollTop = document.scrollingElement.scrollTop;
-      document.body.classList.add(bodyCls);
-      document.body.style.top = -scrollTop + 'px';
-    },
-    beforeClose: function() {
-      document.body.classList.remove(bodyCls);
-      // scrollTop lost after set position:fixed, restore it back.
-      document.scrollingElement.scrollTop = scrollTop;
-    }
-  };
+    var scrollTop;
+    return {
+        afterOpen: function() {
+            scrollTop = document.scrollingElement.scrollTop;
+            document.body.classList.add(bodyCls);
+            document.body.style.top = -scrollTop + 'px';
+        },
+        beforeClose: function() {
+            document.body.classList.remove(bodyCls);
+            // scrollTop lost after set position:fixed, restore it back.
+            document.scrollingElement.scrollTop = scrollTop;
+        }
+    };
 })('no-scroll');
 
-// 滚动显示js
-var smt = new SMT({
-    animateClass: 'animated',
-    offset: 100
-});
 
 
 
 
 // jq页面加载完毕
 // $(function(){
-	
+
 // })
-// window.onload=function(){
-       
-// }
 
 
-smt.init();
+
+
 $.init()

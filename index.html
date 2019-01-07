@@ -14,8 +14,8 @@
 </head>
 
 <body>
-    <canvas id="J_dotLine"></canvas>
-    <!-- 首页大图 -->
+    <input type="hidden" name="ip" id="ip">
+    <input type="hidden" name="address" id="address">
     <div class="header" id="header">
         <div class="w-1200">
             <h2>MYPROFILE</h2>
@@ -28,265 +28,265 @@
             </ul>
         </div>
     </div>
-    <div class="banner" id="banner"></div>
-
-    <!-- 关于我 -->
-    <div class="aboutMe" id="aboutMe">
-        <div class="w-1200 clearfix relative">
-            <img src="https://image.sumaotong.com/258com/20181218/bc0d1ee83c6dd5682e798c271f155513.png" alt="about_left" class="left SMT fadeInLeft" >
-            <div class="font-box">
-                <div class="SMT bounceIn">
-                    <strong>关于我</strong>
-                    <span>ABOUT Me</span>
-                    <p>我喜欢挑战自己，而编程恰好充满挑战性。更重要的是，我的逻辑思维因此得到提高。在过去三年里，我先后学了 Visual Basic、HTML、CSS、JavaScript、PHP 和 SQL 等多种计算机语言，我还在不断学习新的编程语言，比如 Swift 和 Objective-C。</p>
+    <!-- 首页大图 -->
+    <div class="banner" id="banner">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="" data-pc="https://images.hongzequan.com/website/banner1.jpg" data-m="https://images.hongzequan.com/website/banner1-m.jpg" alt="">
                 </div>
             </div>
-            <img src="https://image.sumaotong.com/258com/20181218/cbf43af3ec20ed7103e07f880d69e98c.png" alt="about_right" class="right SMT fadeInRight">
-            <div class="g-subtitle clearfix">
-                <div class="text">
-                    <i>02</i>
-                    <span>website</span>
-                </div>
-                <img src="images/about.png" alt="">
-            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
         </div>
     </div>
-    <!-- 我的技能 -->
-    <div class="mySkills" id="mySkills">
-        <div class="img1"><img src="https://image.sumaotong.com/258com/20181218/fd7feedcbc57d4e4534045c295854380.png" alt=""></div>
-        <div class="w-1200 relative">
-            <div class="font-box">
-                <strong class="SMT bounce">我的技能</strong>
-                <p class="f-gray SMT slideInUp">我喜欢挑战自己，而编程恰好充满挑战性。更重要的是，我的逻辑思维因此得到提高。在过去六年里，我先后学了 Visual Basic、HTML、CSS、JavaScript、PHP 和 SQL 等多种计算机语言，我还在不断学习新的编程语言，比如 Swift 和 Objective-C。我喜欢挑战自己，而编程恰好充满挑战性。更重要的是，我的逻辑思维因此得到提高。</p>
-                <ul class="clearfix" id="skills">
-                    <li class="SMT fadeInUp"><label>HTML</label>
-                        <div class="bar-box">
-                            <div class="j-bar"><i></i></div>
-                            <span class="SMT fadeIn" data-SMT-delay=".5s">90%</span>
-                        </div>
-                    </li>
-                    <li class="SMT fadeInUp"><label>CSS</label>
-                        <div class="bar-box">
-                            <div class="j-bar"><i></i></div>
-                            <span class="SMT fadeIn" data-SMT-delay=".5s">90%</span>
-                        </div>
-                    </li>
-                    <li class="SMT fadeInUp"><label>JavaScript</label>
-                        <div class="bar-box">
-                            <div class="j-bar"><i></i></div>
-                            <span class="SMT fadeIn" data-SMT-delay=".5s">75%</span>
-                        </div>
-                    </li>
-                    <li class="SMT fadeInUp"><label>Jquery</label>
-                        <div class="bar-box">
-                            <div class="j-bar"><i></i></div>
-                            <span class="SMT fadeIn" data-SMT-delay=".5s">90%</span>
-                        </div>
-                    </li>
-                    <li class="SMT fadeInUp"><label>bootstrap</label>
-                        <div class="bar-box">
-                            <div class="j-bar"><i></i></div>
-                            <span class="SMT fadeIn" data-SMT-delay=".5s">70%</span>
-                        </div>
-                    </li>
-                    <li class="SMT fadeInUp"><label>Ajax</label>
-                        <div class="bar-box">
-                            <div class="j-bar"><i></i></div>
-                            <span class="SMT fadeIn" data-SMT-delay=".5s">90%</span>
-                        </div>
-                    </li>
-                    <li class="SMT fadeInUp"><label>vue.js</label>
-                        <div class="bar-box">
-                            <div class="j-bar"><i></i></div>
-                            <span class="SMT fadeIn" data-SMT-delay=".5s">75%</span>
-                        </div>
-                    </li>
-                    <li class="SMT fadeInUp"><label>node.js</label>
-                        <div class="bar-box">
-                            <div class="j-bar"><i></i></div>
-                            <span class="SMT fadeIn" data-SMT-delay=".5s">40%</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="g-subtitle clearfix">
-                <div class="SMT fadeInLeft">
+    <div class="main" id="main">
+        <!-- 关于我 -->
+        <div class="aboutMe" id="aboutMe">
+            <canvas id="J_dotLine"></canvas>
+            <div class="w-1200 clearfix relative">
+                <img src="https://images.hongzequan.com/website/about_left.png" alt="about_left" class="left SMT fadeInLeft" >
+                <div class="font-box">
+                    <div>
+                        <strong>关于我</strong>
+                        <span>ABOUT Me</span>
+                        <p>我喜欢挑战自己，而编程恰好充满挑战性。更重要的是，我的逻辑思维因此得到提高。在过去三年里，我先后学了 Visual Basic、HTML、CSS、JavaScript、PHP 和 SQL 等多种计算机语言，我还在不断学习新的编程语言，比如 Swift 和 Objective-C。</p>
+                    </div>
+                </div>
+                <img src="https://images.hongzequan.com/website/about_right.png" alt="about_right" class="right SMT fadeInRight">
+                <div class="g-subtitle clearfix SMT fadeInRight">
                     <div class="text">
                         <i>02</i>
                         <span>website</span>
                     </div>
-                    <img src="images/skills.png" alt="">
+                    <img src="https://images.hongzequan.com/website/about.png" alt="">
                 </div>
             </div>
         </div>
-        <div class="img2">
-            <img src="https://image.sumaotong.com/258com/20181218/516a62276620c8165166fb6706011755.png" alt="">
-        </div>
-    </div>
-    <!-- 我的项目 -->
-    <div class="myPortfolio" id="myPortfolio">
-        <div class="w-1200 relative">
-            <ul>
-                <li class="SMT bounceIn">
-                    <div class="hover">
-                        <img src="https://image.sumaotong.com/258com/20181218/f00deed39835cd7f5e39780b4a597652.png" alt="">
-                        <div class="font-box">
-                            <div class="middle">
-                                <h3>营销宝外贸版</h3>
-                                <strong>厦门二五八网络科技集团股份有限公司</strong>
-                                <p>负责前端架构</p>
-                                 <div class="btn-box">
-                                    <a href="https://www.sumaotong.com" target="_blank" >官网</a>
-                                    <a data-type="smt" onclick="$.demo(this)">界面</a>
-                                </div>
+        <!-- 我的技能 -->
+        <div class="mySkills" id="mySkills">
+            <div class="img1"><img src="https://images.hongzequan.com/website/skills_1.png" alt=""></div>
+            <div class="w-1200 relative">
+                <div class="font-box">
+                    <strong class="SMT bounce">我的技能</strong>
+                    <p class="f-gray SMT slideInUp">我喜欢挑战自己，而编程恰好充满挑战性。更重要的是，我的逻辑思维因此得到提高。在过去六年里，我先后学了 Visual Basic、HTML、CSS、JavaScript、PHP 和 SQL 等多种计算机语言，我还在不断学习新的编程语言，比如 Swift 和 Objective-C。我喜欢挑战自己，而编程恰好充满挑战性。更重要的是，我的逻辑思维因此得到提高。</p>
+                    <ul class="clearfix" id="skills">
+                        <li class="SMT fadeInUp"><label>HTML</label>
+                            <div class="bar-box">
+                                <div class="j-bar"><i></i></div>
+                                <span class="SMT fadeIn" data-SMT-delay=".5s">90%</span>
                             </div>
-                        </div>
-                       
-                    </div>
-                </li>
-                <li class="SMT bounceIn">
-                    <div class="hover">
-                        <img src="https://image.sumaotong.com/258com/20181218/8322722d0170c5290a04008c85535875.png" alt="">
-                        <div class="font-box">
-                            <div class="middle">
-                                <h3>商务卫士</h3>
-                                <strong>厦门二五八网络科技集团股份有限公司</strong>
-                                <p>负责客户端页面</p>
-                                <div class="btn-box">
-                                    <a href="https://www.258weishi.com" target="_blank" >官网</a>
-                                    <a data-type="swws" onclick="$.demo(this)">界面</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="SMT bounceIn">
-                    <div class="hover">
-                        <img src="https://image.sumaotong.com/258com/20181218/d50bce9791c311b3b39de95f5107824b.png" alt="">
-                        <div class="font-box">
-                            <div class="middle">
-                                <h3>商易推</h3>
-                                <strong>厦门二五八网络科技集团股份有限公司</strong>
-                                <p>负责客户端页面</p>
-                                <div class="btn-box">
-                                    <a href="http://syt.258.com/" target="_blank" >官网</a>
-                                    <a onclick="$.demo(this)">界面</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="SMT bounceIn">
-                    <div class="hover">
-                        <img src="https://image.sumaotong.com/258com/20181218/82dbc3066cd7ce9879ff8814dcd52a0b.png" alt="">
-                        <div class="font-box">
-                            <div class="middle">
-                                <h3>营销宝外贸版-运营系统</h3>
-                                <strong>厦门二五八网络科技集团股份有限公司</strong>
-                                <p>前后端分离项目技术Vue.js</p>
-                                <div class="btn-box">
-                                    <a onclick="$.demo(this)">界面</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="SMT bounceIn">
-                    <div class="hover">
-                        <img src="https://image.sumaotong.com/258com/20181218/2668afafce8a2142b389dc03a094d6fb.png" alt="" >
-                        <div class="font-box">
-                            <div class="middle">
-                                <h3>好帮你系统</h3>
-                                <p>负责移动端页面</p>
-                                <div class="btn-box">
-                                    <a onclick="$.demo(this)">界面</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="g-subtitle clearfix">
-                <div class="SMT fadeInRight">
-                    <div class="text">
-                        <i>03</i>
-                        <span>website</span>
-                    </div>
-                    <img src="images/portfolio.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    <!-- 给我留言 -->
-    <div class="message" id="message">
-        <div class="w-1200">
-            <div class="head">
-                <strong class="SMT bounce">给我留言</strong>
-                <p class="SMT slideInUp">相比于各种虚伪的说辞，我更愿意亲自为您解答疑虑。留下您想咨询的问题，我会一一给您解答。</p>
-            </div>
-            <form  class="ui-form">
-                    <ul class="ui-checkbox">
-                        <li>
-                            <input type="radio" name="sex" value="gg" checked>
-                            <img src="images/gg.png" alt="gg" title="小哥哥">
                         </li>
-                        <li>
-                            <input type="radio" name="sex" value="mm">
-                            <img src="images/mm.png" alt="mm" title="小姐姐">
+                        <li class="SMT fadeInUp"><label>CSS</label>
+                            <div class="bar-box">
+                                <div class="j-bar"><i></i></div>
+                                <span class="SMT fadeIn" data-SMT-delay=".5s">90%</span>
+                            </div>
+                        </li>
+                        <li class="SMT fadeInUp"><label>JavaScript</label>
+                            <div class="bar-box">
+                                <div class="j-bar"><i></i></div>
+                                <span class="SMT fadeIn" data-SMT-delay=".5s">75%</span>
+                            </div>
+                        </li>
+                        <li class="SMT fadeInUp"><label>Jquery</label>
+                            <div class="bar-box">
+                                <div class="j-bar"><i></i></div>
+                                <span class="SMT fadeIn" data-SMT-delay=".5s">90%</span>
+                            </div>
+                        </li>
+                        <li class="SMT fadeInUp"><label>bootstrap</label>
+                            <div class="bar-box">
+                                <div class="j-bar"><i></i></div>
+                                <span class="SMT fadeIn" data-SMT-delay=".5s">70%</span>
+                            </div>
+                        </li>
+                        <li class="SMT fadeInUp"><label>Ajax</label>
+                            <div class="bar-box">
+                                <div class="j-bar"><i></i></div>
+                                <span class="SMT fadeIn" data-SMT-delay=".5s">90%</span>
+                            </div>
+                        </li>
+                        <li class="SMT fadeInUp"><label>vue.js</label>
+                            <div class="bar-box">
+                                <div class="j-bar"><i></i></div>
+                                <span class="SMT fadeIn" data-SMT-delay=".5s">75%</span>
+                            </div>
+                        </li>
+                        <li class="SMT fadeInUp"><label>node.js</label>
+                            <div class="bar-box">
+                                <div class="j-bar"><i></i></div>
+                                <span class="SMT fadeIn" data-SMT-delay=".5s">40%</span>
+                            </div>
                         </li>
                     </ul>
-                    <textarea name="" id="" cols="30" rows="10" placeholder="来说两句吧"></textarea>
-                    <input type="submit" value="提交" class="submit">
-            </form>
-            <div id="msg">
-                <strong>评论</strong>
-                <ul class="msg-item">
-                    <li>
-                        <div class="img-box">
-                            <img src="images/b_gg.png" alt="">
+                </div>
+                <div class="g-subtitle clearfix">
+                    <div class="SMT fadeInLeft">
+                        <div class="text">
+                            <i>02</i>
+                            <span>website</span>
                         </div>
-                        <div class="font-box">
-                            <div class="from">来自福建省厦门市网友</div>
-                            <p>作为开门七件事(柴米油盐酱醋茶)之一的茶，在中国可以追溯千年，饮茶也成了普遍存在的一种习俗。饮茶，一泡、一饮间有了源远流长，博大精深茶文化，多少爱茶之人赋予了无限情结而将饮茶变得高雅
-                            优美、丰富多彩。不同于其他国度的我们，不会把种茶、饮茶当做茶文化，而我们理解中茶文化更多的是文人墨客的参与，将文化的渗入，将饮茶变得更有内涵。之一的茶，
-                            在中国可以追溯千年，饮茶也成了普遍存在的一种习俗。饮茶，一泡、一饮间有了源远流长，博大精深茶文化，多少爱茶之人赋予了无限情结而将饮茶变得高雅优美、丰富多彩。不同于其他国度的我们，不会把种
-                            茶、饮茶当做茶文化，而我们理解中茶文
-                            高雅优美、丰富多彩。不同于其他国度的我们，不会把种茶、饮茶当做茶文化，而我们理解中茶文化更多的是文人墨客的参与，将文化的渗入，将饮茶变得更有内涵。</p>
-                            <span>2018-11-13 10:00:01</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img-box">
-                            <img src="images/b_mm.png" alt="">
-                        </div>
-                        <div class="font-box">
-                            <div class="from">来自福建省厦门市网友</div>
-                            <p>作为开门七件事(柴米油盐酱醋茶)之一的茶，在中国可以追溯千年，饮茶也成了普遍存在的一种习俗。饮茶，一泡、一饮间有了源远流长，博大精深茶文化，多少爱茶之人赋予了无限情结而将饮茶变得高雅优美、丰富多彩。不同于其他国度的我们，不会把种茶、饮茶当做茶文化，而我们理解中茶文化更多的是文人墨客的参与，将文化的渗入，将饮茶变得更有内涵。</p>
-                            <span>2018-11-13 10:00:01</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img-box">
-                            <img src="images/b_gg.png" alt="">
-                        </div>
-                        <div class="font-box">
-                            <div class="from">来自福建省厦门市网友</div>
-                            <p>作为开门七件事(柴米油盐酱醋茶)之一的茶，在中国可以追溯千年，饮茶也成了普遍存在的一种习俗。饮茶，一泡、一饮间有了源远流长，博大精深茶文化，多少爱茶之人赋予了无限情结而将饮茶变得高雅优美、丰富多彩。不同于其他国度的我们，不会把种茶、饮茶当做茶文化，而我们理解中茶文化更多的是文人墨客的参与，将文化的渗入，将饮茶变得更有内涵。</p>
-                            <span>2018-11-13 10:00:01</span>
+                        <img src="https://images.hongzequan.com/website/skills.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="img2">
+                <img src="https://images.hongzequan.com/website/skills_2.png" alt="">
+            </div>
+        </div>
+        <!-- 我的项目 -->
+        <div class="myPortfolio" id="myPortfolio">
+            <div class="w-1200 relative">
+                <div class="myPortfolio-box">
+                <ul>
+                    <li class="item">
+                        <div class="hover">
+                            <img src="https://images.hongzequan.com/website/portfolio/sumaotong.png" alt="">
+                            <div class="font-box">
+                                <div class="middle">
+                                    <h3>营销宝外贸版</h3>
+                                    <strong>厦门二五八网络科技集团股份有限公司</strong>
+                                    <p>负责前端架构</p>
+                                     <div class="btn-box">
+                                        <a href="https://www.sumaotong.com" target="_blank" >官网</a>
+                                        <a data-type="smt" onclick="$.demo(this)">界面</a>
+                                    </div>
+                                </div>
+                            </div>
+                           
                         </div>
                     </li>
-                    <li>
-                        <div class="img-box">
-                            <img src="images/b_mm.png" alt="">
+                    <li class="item">
+                        <div class="hover">
+                            <img src="https://images.hongzequan.com/website/portfolio/swws.png" alt="">
+                            <div class="font-box">
+                                <div class="middle">
+                                    <h3>商务卫士</h3>
+                                    <strong>厦门二五八网络科技集团股份有限公司</strong>
+                                    <p>负责客户端页面</p>
+                                    <div class="btn-box">
+                                        <a href="https://www.258weishi.com" target="_blank" >官网</a>
+                                        <a data-type="swws" onclick="$.demo(this)">界面</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="font-box">
-                            <div class="from">来自福建省厦门市网友</div>
-                            <p>作为开门七件事(柴米油盐酱醋茶)之一的茶，在中国可以追溯千年，饮茶也成了普遍存在的一种习俗。饮茶，一泡、一饮间有了源远流长，博大精深茶文化，多少爱茶之人赋予了无限情结而将饮茶变得高雅优美、丰富多彩。不同于其他国度的我们，不会把种茶、饮茶当做茶文化，而我们理解中茶文化更多的是文人墨客的参与，将文化的渗入，将饮茶变得更有内涵。</p>
-                            <span>2018-11-13 10:00:01</span>
+                    </li>
+                    <li class="item">
+                        <div class="hover">
+                            <img src="https://images.hongzequan.com/website/portfolio/syt.png" alt="">
+                            <div class="font-box">
+                                <div class="middle">
+                                    <h3>商易推</h3>
+                                    <strong>厦门二五八网络科技集团股份有限公司</strong>
+                                    <p>负责客户端页面</p>
+                                    <div class="btn-box">
+                                        <a href="http://syt.258.com/" target="_blank" >官网</a>
+                                        <!-- <a onclick="$.demo(this)">界面</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="hover">
+                            <img src="https://images.hongzequan.com/website/portfolio/yy_sumaotong.png" alt="">
+                            <div class="font-box">
+                                <div class="middle">
+                                    <h3>营销宝外贸版-运营系统</h3>
+                                    <strong>厦门二五八网络科技集团股份有限公司</strong>
+                                    <p>前后端分离项目技术Vue.js</p>
+                                    <div class="btn-box">
+                                        <a data-type="smtyy" onclick="$.demo(this)">界面</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="hover">
+                            <img src="https://images.hongzequan.com/website/portfolio/qyz.png" alt="" >
+                            <div class="font-box">
+                                <div class="middle">
+                                    <h3>企业站</h3>
+                                    <p>响应式界面</p>
+                                    <div class="btn-box">
+                                        <a href="http://test.hongzequan.com/dome1/index.html" target="_blank" >地址</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="hover">
+                            <img src="https://images.hongzequan.com/website/portfolio/hbn.png" alt="" >
+                            <div class="font-box">
+                                <div class="middle">
+                                    <h3>好帮你系统</h3>
+                                    <p>负责移动端页面</p>
+                                    <!-- <div class="btn-box"> -->
+                                        <!-- <a data-type="hbn" onclick="$.demo(this)">界面</a> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="hover">
+                            <img src="https://images.hongzequan.com/website/portfolio/webApp.png" alt="" >
+                            <div class="font-box">
+                                <div class="middle">
+                                    <h3>产品信息数据页</h3>
+                                    <p>Hybrid app</p>
+                                    <div class="btn-box">
+                                        <a href="http://test.hongzequan.com/webApp/ws-index.html" target="_blank">地址</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </li>
                 </ul>
+                </div>
+                <div class="g-subtitle clearfix">
+                    <div class="SMT fadeInRight">
+                        <div class="text">
+                            <i>03</i>
+                            <span>website</span>
+                        </div>
+                        <img src="https://images.hongzequan.com/website/portfolio.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- 给我留言 -->
+        <div class="message" id="message">
+            <div class="w-1200">
+                <div class="head">
+                    <strong class="SMT bounce">给我留言</strong>
+                    <p class="SMT slideInUp">相比于各种虚伪的说辞，我更愿意亲自为您解答疑虑。留下您想咨询的问题，我会一一给您解答。</p>
+                </div>
+                <div class="ui-form">
+                        <div class="nameInput"><input type="text" name="name" placeholder="请输入您的匿名" id="username"></div>
+                        <ul class="ui-checkbox">
+                            <li>
+                                <input type="radio" name="sex" value="0" checked>
+                                <img src="https://images.hongzequan.com/website/gg.png" alt="男性" title="小哥哥">
+                            </li>
+                            <li>
+                                <input type="radio" name="sex" value="1">
+                                <img src="https://images.hongzequan.com/website/mm.png" alt="女性" title="小姐姐">
+                            </li>
+                        </ul>
+                        <textarea cols="30" rows="10" placeholder="来说两句吧" name="content" id="content"></textarea>
+                        <input type="submit" value="提交" class="submit"  onclick="$.checkMessage()">
+                </div>
+                <div id="msg">
+                    <strong>评论</strong>
+                    <ul class="msg-item">
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -299,9 +299,10 @@
             </div>
         </div>
     </div>
+    <!-- <div id="tips"></div> -->
     <!-- 项目案例 -->
     <div class="portfolioBanner" id="portfolioBanner">
-        <i class="iconfont icon-close" id="close" onclick="$.closeModal(this)"></i>
+        <i class="iconfont icon-guanbi" id="close" onclick="$.closeModal(this)"></i>
         <div class="swiper-container">
             <div class="swiper-wrapper"></div>
             <!-- 如果需要分页器 -->
@@ -315,6 +316,9 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/smt.js"></script>
     <script src="js/swiper.min.js"></script>
+    <script src="js/cascade.js"></script>
+    <!-- 获取用户ip -->
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> 
     <script src="js/main.js?v=1"></script>
 </body>
 

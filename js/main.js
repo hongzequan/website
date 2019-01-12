@@ -8,7 +8,11 @@
  */
 ;
 (function(window, document, $) {
+    var isAdmin;
     var isfirst = true; //用来判断是否是第一次加载
+    var times; //延时器
+    // var API = "http://localhost:8080/"; //测试接口
+    var API = "https://api.hongzequan.com:8000/";//接口地址
     //存储模块数据
     var navArr = [{ name: '#banner', scrollTop: 0, }, { name: '#aboutMe', scrollTop: 0, }, { name: '#mySkills', scrollTop: 0, }, { name: '#myPortfolio', scrollTop: 0, }, { name: '#message', scrollTop: 0, }];
     // 案例demo组
@@ -91,6 +95,20 @@
                 return "-1"; //非IE
             }
         },
+        /**
+         * 预防xss进行字符串转码
+         */
+        htmlEncodeByRegExp: function(str) {
+            var s = "";
+            if (str.length == 0) return "";
+            s = str.replace(/&/g, "&amp;");
+            s = s.replace(/</g, "&lt;");
+            s = s.replace(/>/g, "&gt;");
+            s = s.replace(/ /g, "&nbsp;");
+            s = s.replace(/\'/g, "&#39;");
+            s = s.replace(/\"/g, "&quot;");
+            return s;
+        },
     }
     ///////////////////////////////////////部分原型的扩展js结束//////////////////////////////////////
 
@@ -100,12 +118,10 @@
          */
         init: function() {
             prin(); //打印
-            setBanner();
-            setBannerHeight();
+            setBanner(); //写入轮播图信息
             initCanvas(); //粒子效果
-            setInfo();
-            $.getMessage();
-            smt.init();
+            setInfo(); //获取访问者信息
+            smt.init(); //滚动加载动画
         },
 
         /**
@@ -120,7 +136,7 @@
             }
         },
 
-        
+
         /**
          * 查看案例
          */
@@ -170,35 +186,44 @@
         /**
          * 获得留言
          */
-        getMessage:function(){
+        getMessage: function() {
             // 获取留言
             $.ajax({
-                type: "POST",
-                url: "http://localhost:8000/getMessage",
+                type: "get",
+                url: API + 'getMessage',
                 data: '',
                 beforeSend: function() {
 
                 },
                 success: function(data) {
-                var res=JSON.parse(data);
-                if(res.s==1){
-                    var arr=res.info;
-                    for (var i = 0; i < arr.length; i++) {
-                            var html="<li>";
-                            if(arr[i].sex==0){
-                                html+="<div class='img-box'><img src='https://images.hongzequan.com/website/b_gg.png'></div>";
-                            }else{
-                                html+="<div class='img-box'><img src='https://images.hongzequan.com/website/b_mm.png'></div>";
+                    var res = JSON.parse(data);
+                    if (res.s == 1) {
+                        var arr = res.info;
+                        for (var i = 0; i < arr.length; i++) {
+                            var html = "<li>";
+                            if (arr[i].sex == 0) {
+                                html += "<div class='img-box'><img src='https://images.hongzequan.com/website/b_gg.png'></div>";
+                            } else {
+                                html += "<div class='img-box'><img src='https://images.hongzequan.com/website/b_mm.png'></div>";
                             }
-                            html+="<div class='font-box'>";
-                            html+="<div class='from'>来自"+arr[i].address+"网友 - "+arr[i].userName+"</div>";
-                            html+="<p>"+arr[i].content+"</p>";
-                            html+="<span>"+timestampToTime(arr[i].createDate)+"</span>";
-                            html+="</div></li>";
-                            $('.msg-item').append(html)
+                            html += "<div class='font-box'>";
+                            if (arr[i].isAdmin == 0) {
+                                html += "<div class='from'>来自" + arr[i].address + "网友 - " + arr[i].userName + "</div>";
+                            } else {
+                                html += "<div class='from'>来自 - 权小哥</div>";
+                            };
+                            html += "<p>" + arr[i].content + "</p>";
+                            html += "<span>" + timestampToTime(arr[i].createDate) + "</span>";
+                            if (isAdmin) {
+                                html += "<div class='delect' onClick='$.delectMessage(" + arr[i].id + ",this)'>删除</div>"
+                            }
+                            html += "</div>";
+                            html += "</li>";
+                            $('.msg-item').append(html);
                         }
                     }
                 },
+
                 error: function(err) {
                     console.log('err')
                 }
@@ -210,76 +235,113 @@
          */
         submitMessage: function() {
             var data = {
-                "username": $('#username').val()==''?'匿名':$('#username').val(),
+                "username": $('#username').val() == '' ? '匿名' : window.utils.htmlEncodeByRegExp($('#username').val()),
                 "sex": $('input:radio[name="sex"]:checked').val(),
-                "content": $("textarea[name='content']").val(),
+                "content": window.utils.htmlEncodeByRegExp($("textarea[name='content']").val()),
                 "ip": $('#ip').val(),
                 "address": $('#address').val(),
+                "isAdmin": isAdmin ? 1 : 0
             };
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/setMessage",
+                url: API + 'setMessage',
                 data: data,
                 beforeSend: function() {
-                    if(data.content==''){
-                        $.openMessage('error','内容不能为空');
+                    if (data.content == '') {
+                        $.openMessage('error', '内容不能为空');
                         return false;
-                    }
+                    };
                 },
-                success: function(data) {
-                    $.openMessage('success','提交成功～');
-                    $("textarea[name='content']").val('');
-                    var html="<li>";
-                        if(data.sex==0){
-                            html+="<div class='img-box'><img src='https://images.hongzequan.com/website/b_gg.png'></div>";
-                        }else{
-                            html+="<div class='img-box'><img src='https://images.hongzequan.com/website/b_mm.png'></div>";
+                success: function(e) {
+                    var res = JSON.parse(e);
+                    if (res.s == 1) {
+                        $.openMessage('success', '提交成功～');
+                        $("textarea[name='content']").val('');
+                        var html = "<li class='on'>";
+                        if (data.sex == 0) {
+                            html += "<div class='img-box'><img src='https://images.hongzequan.com/website/b_gg.png'></div>";
+                        } else {
+                            html += "<div class='img-box'><img src='https://images.hongzequan.com/website/b_mm.png'></div>";
                         }
-                        html+="<div class='font-box'>";
-                        html+="<div class='from'>来自"+data.address+"网友 - "+data.userName+"</div>";
-                        html+="<p>"+data.content+"</p>";
-                        html+="<span>"+timestampToTime(data.createDate)+"</span>";
-                        html+="</div></li>";
-                    $('.msg-item').append(html);
+                        html += "<div class='font-box'>";
+                        if (data.isAdmin == 0) {
+                            html += "<div class='from'>来自" + data.address + "网友 - " + data.username + "</div>";
+                        } else {
+                            html += "<div class='from'>来自 - 权小哥</div>";
+                        };
+                        html += "<p>" + data.content + "</p>";
+                        html += "<span>" + timestampToTime(Date.parse(new Date())) + "</span>";
+                        html += "</div>";
+                        html += "</li>"
+                        $('.msg-item').prepend(html);
+
+                    }
                 },
                 error: function(err) {
                     console.log(err)
-                    $.openMessage('error','提交失败！')
+                    $.openMessage('error', '提交失败！')
                 }
             });
         },
         // 检查是否能够提交留言
-        checkMessage:function(){
-            var data={
-                'ip':$('#ip').val(),
+        checkMessage: function() {
+            var data = {
+                'ip': $('#ip').val(),
             };
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/checkMessage",
+                url: API + 'checkMessage',
                 data: data,
                 beforeSend: function() {
-                   
+
                 },
                 success: function(data) {
-                    var res=JSON.parse(data);
-                    if(res.s==1){
+                    var res = JSON.parse(data);
+                    if (res.s == 1) {
                         $.submitMessage();
-                    }
-                    
+                    } else if (res.s == 0) {
+                        $.openMessage('error', '1分钟内禁止多次提交');
+                    };
+
                 },
                 error: function(err) {
                     console.log(err)
-                    $.openMessage('error','提交失败！')
+                    $.openMessage('error', '提交失败！')
                 }
             });
+        },
+        delectMessage: function(id, obj) {
+            $.ajax({
+                type: "POST",
+                url: API + 'delectMessage',
+                data: { 'id': id },
+                beforeSend: function() {
 
+                },
+                success: function(data) {
+                    var res = JSON.parse(data);
+                    if (res.s == 1) {
+                        $.openMessage('success', '删除成功');
+                        $(obj).parents('li').fadeOut('400', function() {
+                            $(obj).parents('li').remove();
+                        });
+                    }
+                },
+                error: function(err) {
+                    console.log(err)
+                    $.openMessage('error', '提交失败！')
+                }
+            });
         },
         // 公用提示信息
         openMessage: function(type, text) {
-            if ($('#tips').length == 1) {
+            if ($('#tips').length > 0) {
                 $('#tips').remove();
-                clearTimeout(t)
-            } 
+                //多次触发，计时器重新计算
+                if (times != 'undefined') {
+                    clearTimeout(times);
+                }
+            }
             if (type == 'success') {
                 var html = '<div id="tips">' + text + '</div>';
                 $('body').append(html);
@@ -288,11 +350,12 @@
                 $('body').append(html);
             }
             $('#tips').addClass('on');
-            var t = setTimeout(function() {
+            times = setTimeout(function() {
                 $('#tips').fadeOut('400', function() {
                     $('#tips').remove();
                 });
             }, 3000)
+
         }
     });
 
@@ -311,45 +374,95 @@
         }
     };
     /**
+     * 首屏打字效果
+     */
+    function setFont() {
+        $('.banner .text').typeIt({
+            whatToType: ["Believeme!", "I was prepared foreverything."],
+            typeSpeed: 100
+        }, function() {
+
+        });
+    };
+    /**
      * 获取当前访问者的信息
      */
     function setInfo() {
         $('#ip').val(returnCitySN['cip']);
-        $('#address').val(returnCitySN['cname'])
-    };
+        $('#address').val(returnCitySN['cname']);
 
+        // 管理员身份验证
+
+        checkAdmin(getQueryString('admin'), getQueryString('password'));
+    };
+    /**
+     * 检测当前对象是否是管理员
+     */
+    function checkAdmin(username, password) {
+        if (username && password) {
+            var data = {
+                'username': username,
+                'password': password,
+            }
+            $.ajax({
+                type: "POST",
+                url: API + 'checkAdmin',
+                data: data,
+                beforeSend: function() {
+
+                },
+                success: function(e) {
+                    var res = JSON.parse(e);
+                    if (res.s == 1) {
+                        isAdmin = true;
+                        $.openMessage('success', '欢迎回来！  ' + username);
+                        $.getMessage(); //获取留言信息
+                    }else if(res.s==0){
+                        $.getMessage(); //获取留言信息
+                    }
+                },
+                error: function(err) {
+                    console.log(err)
+                    $.openMessage('error', '提交失败！')
+                }
+            });
+        } else {
+            $.getMessage(); //获取留言信息
+        }
+
+    };
 
     /**
      * 设置轮播图图片
      */
-     function setBanner(){
-        var arr=$('.banner img');
-            length=arr.length;
-            q=1;
-        if(window.utils.getWindowInfo().userAgent=='pc'){
+    function setBanner() {
+        var arr = $('.banner img');
+        length = arr.length;
+        q = 1;
+        if (window.utils.getWindowInfo().userAgent == 'pc') {
             for (var i = 0; i < arr.length; i++) {
-                $(arr[i]).attr('src',$(arr[i]).attr('data-pc'))
+                $(arr[i]).attr('src', $(arr[i]).attr('data-pc'))
             }
-        }else{
-             for (var i = 0; i < arr.length; i++) {
-                $(arr[i]).attr('src',$(arr[i]).attr('data-m'))
+        } else {
+            for (var i = 0; i < arr.length; i++) {
+                $(arr[i]).attr('src', $(arr[i]).attr('data-m'))
             }
         }
-        arr.load(function(){
-        // 加载完成    
-            if(length<=q){
-               initSwiper();
-            }else{
-              q++;
+        arr.load(function() {
+            // 加载完成    
+            if (length <= q) {
+                initSwiper();
+                setFont();
+            } else {
+                q++;
             }
         });
-
-     };
+    };
     /**
      * 计算banner高度
      */
     function setBannerHeight() {
-        $('body').css({"paddingTop":$('#banner').height()})
+        $('body').css({ "paddingTop": $('#banner').height() })
     };
     /**
      * 初始化轮播图
@@ -361,17 +474,17 @@
             autoplayDisableOnInteraction: false,
             autoHeight: true, //高度随内容变化
             // 如果需要分页器
-            pagination: '.banner .swiper-pagination',
-            paginationClickable :true,
-            observer:true,
-            observeParents:true,
-            onInit: function(swiper){
-              //Swiper初始化了
-              //alert(swiper.activeIndex);提示Swiper的当前索引
-              setBannerHeight();
+            // pagination: '.banner .swiper-pagination',
+            paginationClickable: true,
+            observer: true,
+            observeParents: true,
+            onInit: function(swiper) {
+                //Swiper初始化了
+                //alert(swiper.activeIndex);提示Swiper的当前索引
+                setBannerHeight();
             },
-            onBeforeResize: function(swiper){
-              setBannerHeight()
+            onBeforeResize: function(swiper) {
+                setBannerHeight();
             }
         });
     };
@@ -394,7 +507,7 @@
                 ds: 50, //点的个数
             };
             $.extend(defaults, options);
-        }
+        };
         var dotline = new Dotline(defaults).start();
     };
     /**
@@ -457,29 +570,38 @@
         }
     };
 
+    // 获取url传参
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
     // 滚动显示js
     var smt = new SMT({
         animateClass: 'animated',
         offset: 100
     });
 
-    window.onload=function(){
+
+    // 时间戳转日期格式
+    function timestampToTime(timestamp) {
+        var date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '/';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '/';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+        // var s = date.getSeconds();
+        return Y + M + D + h + m;
+    }
+
+
+    window.onload = function() {
         // 我的项目瀑布流效果
         $('.myPortfolio-box ul').cascade();
     }
-    function timestampToTime(timestamp) {
-        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-        var Y = date.getFullYear() + '/';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
-        var D = date.getDate() + ' ';
-        var h = date.getHours() + ':';
-        var m = date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes();
-        // var s = date.getSeconds();
-        return Y+M+D+h+m;
-    }
-    // timestampToTime(1403058804);
-    // console.log(timestampToTime(1403058804));//2014-06-18 10:33:24
-
 
 
     ///////////////////////////////////////模块js 结束////////////////////////////////////// 

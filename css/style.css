@@ -85,8 +85,10 @@ body{min-height:100%;-webkit-overflow-scrolling: touch;overflow-x: hidden;}
 
 .f-gray{color: #aaa;}
 #J_dotLine{position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
+.text-right{text-align: right;}
 #banner{position: fixed;left: 0;top: 0;width: 100%;}
 #banner .swiper-slide img{width: 100%;}
+#banner .text{position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);z-index: 1;color: #fff;font-size: 36px;width: 80%;font-weight: bold;overflow: hidden;transition: all 2s;text-align: center;}
 
 
 #header{position: fixed;width: 100%;left: 0;z-index: 2;top: 10px;transition: all .5s;}
@@ -128,7 +130,11 @@ body{min-height:100%;-webkit-overflow-scrolling: touch;overflow-x: hidden;}
 #aboutMe .font-box{position: absolute;left: 50%;top: 50%;width: 600px;background: #fff;padding: 30px 15px;transform: translate(-50%,-50%);color: #aaa;box-shadow: 0 0 8px rgba(170, 170, 170, .6);z-index: 1;}
 #aboutMe .font-box strong{display: block; font-size: 18px; color: #161616; } 
 #aboutMe .font-box span{} 
-#aboutMe .font-box p{margin-top: 20px;}
+#aboutMe .font-box .text{margin-top: 20px;line-height: 20px;}
+#aboutMe .font-box .text h1{display: inline;}
+#aboutMe .font-box .text span{color: #666;}
+#aboutMe .font-box .text .text-right{margin-top: 10px;}
+#aboutMe .font-box .text a{color: #ffa22a;}
 
 #mySkills{position: relative;z-index: 1;}
 #mySkills .img1{position: relative;background-image: url('https://images.hongzequan.com/website/skills_1.png');background-position: center;background-repeat: no-repeat;background-size: cover;width: 100%;height: 500px;background-attachment: fixed;}
@@ -137,6 +143,9 @@ body{min-height:100%;-webkit-overflow-scrolling: touch;overflow-x: hidden;}
 
 
 #mySkills .font-box{padding: 30px 15px;padding-left: 215px;}
+#mySkills .font-box .text-box{line-height: 20px;}
+#mySkills .font-box .text-box .list{margin-top: 10px;}
+#mySkills .font-box .text-box .list b{color: #666;}
 #mySkills .g-subtitle{top: -80px;left: 0;text-align: right;padding: 30px 15px;height: calc(100% + 80px);transform: translateX(calc(-100% + 200px));background: #f5f5f5 url('https://images.hongzequan.com/website/skills_line.png') no-repeat;background-position: right bottom;background-size: 300px;}
 #mySkills .font-box strong{display: block; font-size: 18px; color: #161616;margin-bottom: 20px;}
 
@@ -177,7 +186,7 @@ body{min-height:100%;-webkit-overflow-scrolling: touch;overflow-x: hidden;}
 #message .head p{color:#aaa;}
 #message .ui-form{margin-bottom: 30px;}
 
-.ui-form textarea:focus,.ui-form input:focus{outline:none;}
+.ui-form textarea:focus,.ui-form input:focus{outline:none;border:1px solid #ffa22a;}
 .ui-form{}
 .ui-form .ui-checkbox{margin-bottom: 10px;}
 .ui-form textarea,.ui-form input{width: 100%; padding: 10px; background: #454545; color: #ddd; margin-bottom: 10px;border:1px solid #aaa;transition: all .5s;} 
@@ -196,14 +205,19 @@ textarea::-webkit-input-placeholder,input::-webkit-input-placeholder {color: #aa
 #msg strong{display: block;border-bottom: 1px solid #666;font-size: 16px;color: #fff;padding:5px;}
 .msg-item{} 
 .msg-item li{border-bottom: 1px solid #444; padding: 10px 15px; } 
+.msg-item li.on{animation:fadeInDown 1s;}
 .msg-item li:after{content: " "; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
 .msg-item li .img-box{float: left; margin-right: 15px; } 
 .msg-item li .img-box img{width: 100px; } 
-.msg-item li .font-box{overflow: hidden; padding: 10px 0; position: relative; } 
+.msg-item li .font-box{overflow: hidden; padding: 10px 0; position: relative;min-height: 100px; } 
 .msg-item li .font-box .from{color: #fff; margin-bottom: 5px;padding-right: 120px; } 
 .msg-item li .font-box p{color: #aaa; white-space: pre-wrap; } 
 .msg-item li .font-box span{position: absolute; right: 0; top: 10px; color: #fff; }
 .msg-item li:last-child{border-bottom: 0;}
+.msg-item li .delect{position: absolute; right: 0; bottom: 10px; background: #ff9e00; color: #fff; padding: 2px 10px; display: none;cursor: pointer;}
+.msg-item li:hover .delect{display: block;}
+.msg-item li .delect:hover{opacity: .8;}
+
 
 .copyRight{position: relative;z-index: 1;background: #222;height: 40px;line-height: 40px;}
 .copyRight .goTop{float: right;padding: 10px 20px;background: #000;font-size: 14px;color: #aaa;cursor: pointer;line-height: normal;height: 40px;}
@@ -224,6 +238,9 @@ textarea::-webkit-input-placeholder,input::-webkit-input-placeholder {color: #aa
 #tips.on{top: 60px;}
 #tips.error{background: #a22700;}
 
+/*打字特效css*/
+@-webkit-keyframes blink{0%{opacity:1}50%{opacity:0}100%{opacity:1}}@keyframes blink{0%{opacity:1}50%{opacity:0}100%{opacity:1}}.ti-container{display:block;font-size:inherit}.ti-text-container{position:relative;display:inline;font-size:inherit}.ti-text-container:before{content:'';display:inline-block;width:1px;height:1em;position:relative}.ti-text-container.active-container.ti-cursor:after{display:inline}.ti-cursor:after{display:none;content:'|';bottom:-.1em;right:-.25em;position:absolute;line-height:normal;font-size:inherit;-webkit-animation:blink 1s infinite;animation:blink 1s infinite}
+/*打字特效css*/
 
 @media (max-width: 1024px){
 	.w-1200{margin: 0 15px;}
@@ -261,6 +278,7 @@ textarea::-webkit-input-placeholder,input::-webkit-input-placeholder {color: #aa
 	/*#myPortfolio ul li{width: 50%;}*/
 
 	#portfolioBanner{width: 100%; height: 100%; left: 0; top: 0; z-index: 2; border-radius: 0;}
+	#banner .text{font-size: 20px;}
 
 }
 @media (max-width: 600px){
@@ -273,6 +291,8 @@ textarea::-webkit-input-placeholder,input::-webkit-input-placeholder {color: #aa
 	/*我的项目*/
 	#myPortfolio .myPortfolio-box{padding-right: 15px;}
 	/*#myPortfolio ul li .font-box p{display: none;}*/
+	#banner .text{font-size: 14px;}
+
 }
 
 @media (max-width: 414px){

@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>洪泽权个人网站</title>
+    <meta name="description" content="web前端工程师简历">
+    <meta name="author" content="洪泽权">
+    <meta name="keywords" content="前端工程师,洪泽权,web,前端,个人博客">
+    <title>洪泽权-前端-个人网站</title>
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/swiper.min.css">
     <link rel="stylesheet" href="css/fonts/iconfont.css">
-    <link rel="stylesheet" href="css/style.css?v=1">
+    <link rel="stylesheet" href="css/style.min.css">
 
 </head>
 
@@ -18,7 +21,7 @@
     <input type="hidden" name="address" id="address">
     <div class="header" id="header">
         <div class="w-1200">
-            <h2>MYPROFILE</h2>
+            <h2>myWeb</h2>
             <ul>
                 <li class="cur"><a onclick="$.goTop()" class="draw">首屏</a></li>
                 <li><a onclick="$.goTop('#aboutMe')" class="draw">关于我</a></li>
@@ -33,11 +36,13 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="" data-pc="https://images.hongzequan.com/website/banner1.jpg" data-m="https://images.hongzequan.com/website/banner1-m.jpg" alt="">
+                    <img src="" data-pc="https://images.hongzequan.com/website/banner2.png" data-m="https://images.hongzequan.com/website/banner2-m.png" alt="banner">
                 </div>
             </div>
+            <span class="text"></span>
+
             <!-- 如果需要分页器 -->
-            <div class="swiper-pagination"></div>
+            <!-- <div class="swiper-pagination"></div> -->
         </div>
     </div>
     <div class="main" id="main">
@@ -50,7 +55,12 @@
                     <div>
                         <strong>关于我</strong>
                         <span>ABOUT Me</span>
-                        <p>我喜欢挑战自己，而编程恰好充满挑战性。更重要的是，我的逻辑思维因此得到提高。在过去三年里，我先后学了 Visual Basic、HTML、CSS、JavaScript、PHP 和 SQL 等多种计算机语言，我还在不断学习新的编程语言，比如 Swift 和 Objective-C。</p>
+                        <div class="text">
+                            <div>您好，我叫<h1>洪泽权</h1>，坐标<span>厦门</span></div>
+                            <p>毕业于<span>警官学院</span>，<span>计算机专业</span>，本想成为<span>白帽子</span>，毕业后误打误撞的成为了一名<span>前端工程师</span>。</p>
+                            <p>今后的职业规划是朝着<span>全栈发展</span>和<span>web安全</span></p>
+                            <div class="text-right"><a href="">【简历下载】</a></div>
+                        </div>
                     </div>
                 </div>
                 <img src="https://images.hongzequan.com/website/about_right.png" alt="about_right" class="right SMT fadeInRight">
@@ -69,7 +79,20 @@
             <div class="w-1200 relative">
                 <div class="font-box">
                     <strong class="SMT bounce">我的技能</strong>
-                    <p class="f-gray SMT slideInUp">我喜欢挑战自己，而编程恰好充满挑战性。更重要的是，我的逻辑思维因此得到提高。在过去六年里，我先后学了 Visual Basic、HTML、CSS、JavaScript、PHP 和 SQL 等多种计算机语言，我还在不断学习新的编程语言，比如 Swift 和 Objective-C。我喜欢挑战自己，而编程恰好充满挑战性。更重要的是，我的逻辑思维因此得到提高。</p>
+                    <div class="f-gray SMT slideInUp text-box">
+                        <div>我以前端技术入门it，现已能够独立完成一套系统的开发，并部署上线</div>
+                        <div class="list">
+                            <b>技术上：</b>
+                            <p>从前端技术jquery或vue.js+element(angular.js+ionic)等到后端技术node.js+mysql完成项目的开发</p>
+                            <p>从域名到服务器（linux）再到cdn,https,oss</p>
+                            <p>从上线再到seo优化提升</p>
+                        </div>
+                        <div class="list">
+                            <b>工作上：</b>
+                            <p>良好的沟通与表达能力、思维逻辑清晰，较强的动手能力</p>
+                            <p>有进取心、求知欲强烈、对工作充满热情</p>
+                        </div>
+                    </div>
                     <ul class="clearfix" id="skills">
                         <li class="SMT fadeInUp"><label>HTML</label>
                             <div class="bar-box">
@@ -95,12 +118,6 @@
                                 <span class="SMT fadeIn" data-SMT-delay=".5s">90%</span>
                             </div>
                         </li>
-                        <li class="SMT fadeInUp"><label>bootstrap</label>
-                            <div class="bar-box">
-                                <div class="j-bar"><i></i></div>
-                                <span class="SMT fadeIn" data-SMT-delay=".5s">70%</span>
-                            </div>
-                        </li>
                         <li class="SMT fadeInUp"><label>Ajax</label>
                             <div class="bar-box">
                                 <div class="j-bar"><i></i></div>
@@ -117,6 +134,12 @@
                             <div class="bar-box">
                                 <div class="j-bar"><i></i></div>
                                 <span class="SMT fadeIn" data-SMT-delay=".5s">40%</span>
+                            </div>
+                        </li>
+                        <li class="SMT fadeInUp"><label>AMP&MIP</label>
+                            <div class="bar-box">
+                                <div class="j-bar"><i></i></div>
+                                <span class="SMT fadeIn" data-SMT-delay=".5s">60%</span>
                             </div>
                         </li>
                     </ul>
@@ -168,6 +191,20 @@
                                     <div class="btn-box">
                                         <a href="https://www.258weishi.com" target="_blank" >官网</a>
                                         <a data-type="swws" onclick="$.demo(this)">界面</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="hover">
+                            <img src="https://images.hongzequan.com/website/portfolio/webApp.png" alt="" >
+                            <div class="font-box">
+                                <div class="middle">
+                                    <h3>产品信息数据页</h3>
+                                    <p>Hybrid app</p>
+                                    <div class="btn-box">
+                                        <a href="http://test.hongzequan.com/webApp/ws-index.html" target="_blank">地址</a>
                                     </div>
                                 </div>
                             </div>
@@ -232,20 +269,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="item">
-                        <div class="hover">
-                            <img src="https://images.hongzequan.com/website/portfolio/webApp.png" alt="" >
-                            <div class="font-box">
-                                <div class="middle">
-                                    <h3>产品信息数据页</h3>
-                                    <p>Hybrid app</p>
-                                    <div class="btn-box">
-                                        <a href="http://test.hongzequan.com/webApp/ws-index.html" target="_blank">地址</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    
                 </ul>
                 </div>
                 <div class="g-subtitle clearfix">
@@ -268,7 +292,7 @@
                     <p class="SMT slideInUp">相比于各种虚伪的说辞，我更愿意亲自为您解答疑虑。留下您想咨询的问题，我会一一给您解答。</p>
                 </div>
                 <div class="ui-form">
-                        <div class="nameInput"><input type="text" name="name" placeholder="请输入您的匿名" id="username"></div>
+                        <div class="nameInput"><input type="text" name="name" placeholder="请输入您的匿名" id="username" AUTOCOMPLETE="off"></div>
                         <ul class="ui-checkbox">
                             <li>
                                 <input type="radio" name="sex" value="0" checked>
@@ -279,7 +303,7 @@
                                 <img src="https://images.hongzequan.com/website/mm.png" alt="女性" title="小姐姐">
                             </li>
                         </ul>
-                        <textarea cols="30" rows="10" placeholder="来说两句吧" name="content" id="content"></textarea>
+                        <textarea cols="30" rows="10" placeholder="来说两句吧" name="content" id="content" AUTOCOMPLETE="off"></textarea>
                         <input type="submit" value="提交" class="submit"  onclick="$.checkMessage()">
                 </div>
                 <div id="msg">
@@ -318,8 +342,9 @@
     <script src="js/swiper.min.js"></script>
     <script src="js/cascade.js"></script>
     <!-- 获取用户ip -->
-    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> 
-    <script src="js/main.js?v=1"></script>
+    <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script> 
+    <script src="js/typeit.min.js"></script>
+    <script src="js/main.min.js"></script>
 </body>
 
 </html>

@@ -1,80 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<style>
-		<style>        
-			html,body{}    
-            .container {
-                width: 100%;
-                height: 100%;
-                position: relative;
-                padding: 2em;
-                -webkit-filter: contrast(20);
-                filter: contrast(20);
-                background-color: black;
-                overflow: hidden;
-            }
-            
-            h1 {
-                font-family: Righteous;
-                color: white;
-                font-size: 4rem;
-                text-transform: uppercase;
-                line-height: 1;
-                -webkit-animation: letterspacing 5s infinite alternate ease-in-out;
-                animation: letterspacing 5s infinite alternate ease-in-out;
-                display: block;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                -webkit-transform: translate3d(-50%, -50%, 0);
-                transform: translate3d(-50%, -50%, 0);
-                letter-spacing: -2.2rem;
-            }
-            
-            @-webkit-keyframes letterspacing {
-                0% {
-                    letter-spacing: -2.2rem;
-                    -webkit-filter: blur(0.3rem);
-                    filter: blur(0.3rem);
-                }
-                50% {
-                    -webkit-filter: blur(0.5rem);
-                    filter: blur(0.5rem);
-                }
-                100% {
-                    letter-spacing: .5rem;
-                    -webkit-filter: blur(0rem);
-                    filter: blur(0rem);
-                    color: #fff;
-                }
-            }
-            
-            @keyframes letterspacing {
-                0% {
-                    letter-spacing: -2.2rem;
-                    -webkit-filter: blur(0.3rem);
-                    filter: blur(0.3rem);
-                }
-                50% {
-                    -webkit-filter: blur(0.5rem);
-                    filter: blur(0.5rem);
-                }
-                100% {
-                    letter-spacing: .5rem;
-                    -webkit-filter: blur(0rem);
-                    filter: blur(0rem);
-                    color: #fff;
-                }
-            }
-        </style>
-	</style>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
+
 <body>
-	<div class="container">
-    <h1>Hello World!</h1>
-</div>
+<!-- 	<div class="left"></div>
+    <div class="right"></div>	 -->
+    <div id="container">
+    	<div id="center"></div>
+    </div>
+    <script>
+    var name = "The Window";
+    var object = {
+        name: "My Object",
+        getNameFunc: function() {
+            // alert('1.' + this.name);
+            return function() {
+                return this.name;
+            };
+        }
+    };
+    var func = object.getNameFunc();
+    // alert('2.' + func());
+    // alert('3.' + func.call(object));
+    // alert('4.' + func.apply(object));
+
+
+
+    </script>
+    <style>
+    .a {
+        animation: mymove 5s infinite;
+
+        @keyframes mymove {
+            from {
+                top: 0px;
+            }
+
+            to {
+                top: 200px;
+            }
+        }
+    }
+
+    .b {
+        animation: mymove 5s infinite;
+
+        @keyframes mymove {
+            form {
+                top: 0px;
+            }
+
+            top {
+                top: 200px;
+            }
+        }
+    }
+    #e{width: 200px;height: 200px;background: #000;}
+
+/*body{
+    display: flex;
+}*/
+.left{
+    background-color: rebeccapurple;
+    height: 200px;
+    flex: 1;
+}
+.right{
+    background-color: red;
+    height: 200px;
+    width: 100px;
+}
+#container{
+    position:relative;
+}
+ 
+#center{
+    position:absolute;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+
+    </style>
 </body>
+
 </html>

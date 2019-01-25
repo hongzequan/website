@@ -10,6 +10,7 @@
 (function(window, document, $) {
     var isAdmin;
     var isfirst = true; //用来判断是否是第一次加载
+    var isCascade=true;
     var times; //延时器
     // var API = "http://localhost:8080/"; //测试接口
     var API = "https://api.hongzequan.com:8000/";//接口地址
@@ -119,9 +120,11 @@
         init: function() {
             prin(); //打印
             setBanner(); //写入轮播图信息
-            initCanvas(); //粒子效果
+            if(window.utils.getWindowInfo().userAgent=='pc'){
+                initCanvas(); //粒子效果
+                smt.init(); //滚动加载动画
+            }
             setInfo(); //获取访问者信息
-            smt.init(); //滚动加载动画
         },
 
         /**
@@ -596,12 +599,23 @@
         // var s = date.getSeconds();
         return Y + M + D + h + m;
     }
+    function initCascade(){
+        if(window.utils.getWindowInfo().userAgent=='pc'){
+          console.log('判定为pc端，移动端取消瀑布流加载');
+          if(isCascade){
+            isCascade=false;
+             $('.myPortfolio-box ul').cascade();
+          }
 
+        }
+    }
 
     window.onload = function() {
-        // 我的项目瀑布流效果
-        $('.myPortfolio-box ul').cascade();
+       initCascade()
     }
+    $(window).resize(function() {
+       initCascade()
+    });
 
 
     ///////////////////////////////////////模块js 结束////////////////////////////////////// 

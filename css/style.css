@@ -223,6 +223,8 @@ textarea::-webkit-input-placeholder,input::-webkit-input-placeholder {color: #aa
 .copyRight{position: relative;z-index: 1;background: #222;height: 40px;line-height: 40px;}
 .copyRight .goTop{float: right;padding: 10px 20px;background: #000;font-size: 14px;color: #aaa;cursor: pointer;line-height: normal;height: 40px;}
 .copyRight .goTop:hover{opacity: .7;}
+.copyRight span{margin-left: 12px;}
+.copyRight span a{margin-right:8px}
 
 #portfolioBanner{display: none;position: fixed;width: 70%;height: 70%;padding: 30px 15px;background: #fff;left: 15%;top: 15%;z-index: 1;border: 5px solid #000;border-radius: 20px;overflow: hidden;}
 #portfolioBanner .swiper-container{height: 100%;}

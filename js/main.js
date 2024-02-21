@@ -13,32 +13,32 @@
     var isCascade=true;
     var times; //延时器
     // var API = "http://localhost:8080/"; //测试接口
-    var API = "https://api.hongzequan.com:8000/";//接口地址
+    var API = "https://api.zequanhong.com:8000/";//接口地址
     //存储模块数据
     var navArr = [{ name: '#banner', scrollTop: 0, }, { name: '#aboutMe', scrollTop: 0, }, { name: '#mySkills', scrollTop: 0, }, { name: '#myPortfolio', scrollTop: 0, }, { name: '#message', scrollTop: 0, }];
     // 案例demo组
     var demoArr = [{
             name: 'swws',
             imgUrl: [
-                'https://images.hongzequan.com/website/portfolio/swws_1.png',
-                'https://images.hongzequan.com/website/portfolio/swws_2.png',
-                'https://images.hongzequan.com/website/portfolio/swws_3.png',
+                'https://images.zequanhong.com/website/portfolio/swws_1.png',
+                'https://images.zequanhong.com/website/portfolio/swws_2.png',
+                'https://images.zequanhong.com/website/portfolio/swws_3.png',
             ]
         },
         {
             name: 'smt',
             imgUrl: [
-                'https://images.hongzequan.com/website/portfolio/smt_1.png',
-                'https://images.hongzequan.com/website/portfolio/smt_2.png',
-                'https://images.hongzequan.com/website/portfolio/smt_3.png',
+                'https://images.zequanhong.com/website/portfolio/smt_1.png',
+                'https://images.zequanhong.com/website/portfolio/smt_2.png',
+                'https://images.zequanhong.com/website/portfolio/smt_3.png',
             ]
         },
         {
             name: 'smtyy',
             imgUrl: [
-                'https://images.hongzequan.com/website/portfolio/yy_sumaotong.png',
-                'https://images.hongzequan.com/website/portfolio/yy_sumaotong_1.png',
-                'https://images.hongzequan.com/website/portfolio/yy_sumaotong_2.png',
+                'https://images.zequanhong.com/website/portfolio/yy_sumaotong.png',
+                'https://images.zequanhong.com/website/portfolio/yy_sumaotong_1.png',
+                'https://images.zequanhong.com/website/portfolio/yy_sumaotong_2.png',
             ]
         }
     ];
@@ -124,7 +124,7 @@
                 initCanvas(); //粒子效果
                 smt.init(); //滚动加载动画
             }
-            setInfo(); //获取访问者信息
+            // setInfo(); //获取访问者信息
         },
 
         /**
@@ -205,9 +205,9 @@
                         for (var i = 0; i < arr.length; i++) {
                             var html = "<li>";
                             if (arr[i].sex == 0) {
-                                html += "<div class='img-box'><img src='https://images.hongzequan.com/website/b_gg.png'></div>";
+                                html += "<div class='img-box'><img src='https://images.zequanhong.com/website/b_gg.png'></div>";
                             } else {
-                                html += "<div class='img-box'><img src='https://images.hongzequan.com/website/b_mm.png'></div>";
+                                html += "<div class='img-box'><img src='https://images.zequanhong.com/website/b_mm.png'></div>";
                             }
                             html += "<div class='font-box'>";
                             if (arr[i].isAdmin == 0) {
@@ -262,9 +262,9 @@
                         $("textarea[name='content']").val('');
                         var html = "<li class='on'>";
                         if (data.sex == 0) {
-                            html += "<div class='img-box'><img src='https://images.hongzequan.com/website/b_gg.png'></div>";
+                            html += "<div class='img-box'><img src='https://images.zequanhong.com/website/b_gg.png'></div>";
                         } else {
-                            html += "<div class='img-box'><img src='https://images.hongzequan.com/website/b_mm.png'></div>";
+                            html += "<div class='img-box'><img src='https://images.zequanhong.com/website/b_mm.png'></div>";
                         }
                         html += "<div class='font-box'>";
                         if (data.isAdmin == 0) {
